@@ -23,14 +23,9 @@ public class CalcAgeController {
      }
 
      @GetMapping
-     public CalcAgeResponse calculateAge(@RequestParam("birthDay") String birthDay) {
-          try {
-            LocalDate birthDate = LocalDate.parse(birthDay);
-            int age = calcAgeService.calculateAge(birthDate);
-            return new CalcAgeResponse(age);
-          } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Please use ISO 8601 format (YYYY-MM-DD).");
-          }
+     public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
+          int age = calcAgeService.calculateAge(birthDay);
+          return new CalcAgeResponse(age);
      }
 }
 
