@@ -1,5 +1,6 @@
 ---
 title: Spring Boot プロジェクトワークショップ
+author: mikoto2000
 date: "2025-11-30"
 ---
 
@@ -284,17 +285,17 @@ Spring が管理する Bean† 工場からインスタンスを貰い受けて�
 2. 以下のコードを `application.yaml` に追加
    ```yaml
    server:
-      port: ${CREATEPROJECT_SERVER_PORT:8080}
+     port: ${CREATEPROJECT_SERVER_PORT:8080}
    spring:
-    profiles:
-      active: local
-      group:
-        local:
-          - dev-logging
-        prod:
-          - prod-logging
+     profiles:
+       active: local
+       group:
+         local:
+           - local-logging
+         prod:
+           - prod-logging
    ```
-3. 以下のコードを `application-dev-logging.yaml` に追加
+3. 以下のコードを `application-local-logging.yaml` に追加
    ```yaml
    logging:
      level:
@@ -314,13 +315,13 @@ src
  └── main
      └── resources
          ├── application.yaml
-         ├── application-dev-logging.yaml
+         ├── application-local-logging.yaml
          └── application-prod-logging.yaml
 ```
 
 ## プロファイルの切り替え
 
-プロファイルが `active: local` と設定されているため、デフォルトではアプリケーション起動時に `application-dev-logging.yaml` の設定が適用され、ログレベルが `DEBUG` に設定される。
+プロファイルが `active: local` と設定されているため、デフォルトではアプリケーション起動時に `application-local-logging.yaml` の設定が適用され、ログレベルが `DEBUG` に設定される。
 起動時に、例えば `prod` プロファイルを指定すると、 `application-prod-logging.yaml` の設定が適用され、ログレベルが `WARN` に設定される。
 
 
@@ -343,9 +344,9 @@ db やクラウドのエンドポイントなど、環境ごとに異なる設�
  └── main
      └── resources
          ├── application.yaml
-         ├── application-dev-logging.yaml
+         ├── application-local-logging.yaml
          ├── application-prod-logging.yaml
-         ├── application-dev-db.yaml
+         ├── application-local-db.yaml
          └── application-prod-db.yaml
 ```
 
@@ -377,5 +378,12 @@ java -jar target/projectcreate-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 これにより、 `prod` プロファイルが有効になり、 `application-prod-logging.yaml` の設定が適用される。
 
 `local` で起動した場合と、 `prod` で起動した場合で、ログレベルが異なることを確認できる。
+
+
+# まとめ
+
+このワークショップでは、Spring Boot を使用してシンプルな JSON API を作成する方法を学びました。
+プロジェクトの作成からエンドポイントの実装、設定ファイルの管理、そしてアプリケーションのビルドとデプロイまでの一連の流れを理解できたと思います。
+これらの基本的な知識を活用して、より複雑なアプリケーションの開発に挑戦してみてください。
 
 
