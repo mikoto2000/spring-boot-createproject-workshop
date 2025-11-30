@@ -131,7 +131,7 @@ projectcreate
    @Data
    @NoArgsConstructor
    public class CalcAgeResponse {
-       private int age;
+     private int age;
    }
    ```
 
@@ -158,18 +158,18 @@ projectcreate
    @RequestMapping("/api/calc-age")
    public class CalcAgeController {
 
-        private final CalcAgeService calcAgeService;
+     private final CalcAgeService calcAgeService;
 
-        @Autowired
-        public CalcAgeController(CalcAgeService calcAgeService) {
-             this.calcAgeService = calcAgeService;
-        }
+     @Autowired
+     public CalcAgeController(CalcAgeService calcAgeService) {
+       this.calcAgeService = calcAgeService;
+     }
 
-        @GetMapping
-        public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
-             int age = calcAgeService.calculateAge(birthDay);
-             return new CalcAgeResponse(age);
-        }
+     @GetMapping("/calc-age")
+     public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
+       int age = calcAgeService.calculateAge(birthDay);
+       return new CalcAgeResponse(age);
+     }
    }
    ```
 
@@ -178,7 +178,7 @@ projectcreate
 
 1. `src/main/java/dev/mikoto2000/workshop/projectcreate/calcage/controller` ディレクトリに `CalcAgeController.java` ファイルを作成
 2. 以下のコードを `CalcAgeController.java` に追加
-    ```java
+   ```java
    package dev.mikoto2000.workshop.projectcreate.calcage.controller;
 
    import dev.mikoto2000.workshop.projectcreate.calcage.dto.CalcAgeResponse;
@@ -192,25 +192,22 @@ projectcreate
    import java.time.LocalDate;
    import java.time.format.DateTimeParseException;
 
-   import lombok.RequiredArgsConstructor;
-
    @RestController
    @RequestMapping("/api/calc-age")
-   @RequiredArgsConstructor
    public class CalcAgeController {
 
-        private final CalcAgeService calcAgeService;
+     private final CalcAgeService calcAgeService;
 
-        @GetMapping
-        public CalcAgeResponse calculateAge(@RequestParam("birthDay") String birthDay) {
-             try {
-               LocalDate birthDate = LocalDate.parse(birthDay);
-               int age = calcAgeService.calculateAge(birthDate);
-               return new CalcAgeResponse(age);
-             } catch (DateTimeParseException e) {
-               throw new IllegalArgumentException("Invalid date format. Please use ISO 8601 format (YYYY-MM-DD).");
-             }
-        }
+     @Autowired
+     public CalcAgeController(CalcAgeService calcAgeService) {
+       this.calcAgeService = calcAgeService;
+     }
+
+     @GetMapping
+     public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
+       int age = calcAgeService.calculateAge(birthDay);
+       return new CalcAgeResponse(age);
+     }
    }
    ```
 

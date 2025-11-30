@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CalcAgeResponse {
-    private int age;
+  private int age;
 }
 

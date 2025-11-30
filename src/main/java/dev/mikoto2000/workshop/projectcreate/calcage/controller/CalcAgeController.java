@@ -15,17 +15,17 @@ import java.time.format.DateTimeParseException;
 @RequestMapping("/api/calc-age")
 public class CalcAgeController {
 
-     private final CalcAgeService calcAgeService;
+  private final CalcAgeService calcAgeService;
 
-     @Autowired
-     public CalcAgeController(CalcAgeService calcAgeService) {
-          this.calcAgeService = calcAgeService;
-     }
+  @Autowired
+  public CalcAgeController(CalcAgeService calcAgeService) {
+    this.calcAgeService = calcAgeService;
+  }
 
-     @GetMapping
-     public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
-          int age = calcAgeService.calculateAge(birthDay);
-          return new CalcAgeResponse(age);
-     }
+  @GetMapping
+  public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
+    int age = calcAgeService.calculateAge(birthDay);
+    return new CalcAgeResponse(age);
+  }
 }
 
