@@ -141,32 +141,40 @@ projectcreate
 1. `src/main/java/dev/mikoto2000/workshop/projectcreate/calcage/service` ディレクトリに `CalcAgeService.java` ファイルを作成
 2. 以下のコードを `CalcAgeService.java` に追加
    ```java
-   package dev.mikoto2000.workshop.projectcreate.calcage.service;
+   package dev.mikoto2000.workshop.projectcreate.calcage.controller;
 
-   import org.springframework.stereotype.Service;
+   import dev.mikoto2000.workshop.projectcreate.calcage.dto.CalcAgeResponse;
+   import dev.mikoto2000.workshop.projectcreate.calcage.service.CalcAgeService;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.web.bind.annotation.GetMapping;
+   import org.springframework.web.bind.annotation.RequestMapping;
+   import org.springframework.web.bind.annotation.RequestParam;
+   import org.springframework.web.bind.annotation.RestController;
+
    import java.time.LocalDate;
-   import java.time.Period;
+   import java.time.format.DateTimeParseException;
 
-   /**
-    * 年齢計算サービスクラス
-    */
-   @Service
-   public class CalcAgeService {
+   @RestController
+   @RequestMapping("/api/calc-age")
+   public class CalcAgeController {
 
-       /**
-        * 指定された生年月日から現在の年齢を計算します。
-        *
-        * @param birthDate 生年月日
-        * @return 年齢
-        * @throws IllegalArgumentException 無効な生年月日が指定された場合
-        */
-       public int calculateAge(LocalDate birthDate) {
-           LocalDate currentDate = LocalDate.now();
-           if (birthDate == null || birthDate.isAfter(currentDate)) {
-               throw new IllegalArgumentException("Invalid birth date");
-           }
-           return Period.between(birthDate, currentDate).getYears();
-       }
+        private final CalcAgeService calcAgeService;
+
+        @Autowired
+        public CalcAgeController(CalcAgeService calcAgeService) {
+             this.calcAgeService = calcAgeService;
+        }
+
+        @GetMapping
+        public CalcAgeResponse calculateAge(@RequestParam("birthDay") String birthDay) {
+             try {
+               LocalDate birthDate = LocalDate.parse(birthDay);
+               int age = calcAgeService.calculateAge(birthDate);
+               return new CalcAgeResponse(age);
+             } catch (DateTimeParseException e) {
+               throw new IllegalArgumentException("Invalid date format. Please use ISO 8601 format (YYYY-MM-DD).");
+             }
+        }
    }
    ```
 
