@@ -8,7 +8,7 @@ date: "2025-11-30"
 
 ## やること
 
-JSON を返却するミニマムな API を例に、プロジェクト構成・作り方について説明作します。
+JSON を返却するミニマムな API を例に、プロジェクト構成・作り方について説明します。
 
 - プロジェクトの作り方(Spring Initializr)
 - シンプルな API の実装
@@ -179,6 +179,15 @@ projectcreate
     - (依存性注入（DI）によって他のクラスから利用できるクラス = Bean)
 
 
+#### Bean とは
+
+- Spring コンテナによって管理されるオブジェクトのこと
+- `@Service` アノテーションを使用することで、`CalcAgeService` クラスが Spring の Bean として登録される
+- これにより、他のクラスから `CalcAgeService` を注入して利用できるようになる
+- Spring はアプリケーションの起動時に Bean をスキャンし、必要に応じてインスタンスを生成・管理する
+- `@Controller`、`@Repository`、`@Component` などのアノテーションも同様に Bean を定義する(Spring にインスタンスを管理してもらう)ために使用される
+
+
 ### 3. コントローラークラスの作成
 
 1. `src/main/java/dev/mikoto2000/workshop/projectcreate/calcage/controller` ディレクトリに `CalcAgeController.java` ファイルを作成
@@ -231,36 +240,26 @@ projectcreate
 - `CalcAgeService` のインスタンスは、Spring が管理するため、コード内で直接インスタンス化する必要がない
 - また、DI により、テスト時にモックオブジェクトを注入することも容易になる
 
-Spring が管理する Bean† 工場からインスタンスを貰い受けて利用するイメージ。
-
-† : 後述(Bean とは 参照)
+Spring が管理する Bean 工場からインスタンスを貰い受けて利用するイメージ。
 
 
 ##### ステップアップ Tips
 
 - コンストラクタの `@Autowired` は省略可能
 - Lombok の `@RequiredArgsConstructor` と組み合わせるとさらにコードを簡潔にできる
-   ```java
-   ...(snip)
-   @RestController
-   @RequestMapping("/api/calc-age")
-   @RequiredArgsConstructor // private final フィールドにに代入するコンストラクタを自動生成
-   public class CalcAgeController {
+  ```java
+  ...(snip)
+  @RestController
+  @RequestMapping("/api/calc-age")
+  @RequiredArgsConstructor // private final フィールドにに代入するコンストラクタを自動生成
+  public class CalcAgeController {
 
-     private final CalcAgeService calcAgeService;
+    private final CalcAgeService calcAgeService;
 
-     @GetMapping("/calc-age")
-     public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
-   ...(snip)
-   ```
-
-#### Bean とは
-
-- Spring コンテナによって管理されるオブジェクトのこと
-- `@Service` アノテーションを使用することで、`CalcAgeService` クラスが Spring の Bean として登録される
-- これにより、他のクラスから `CalcAgeService` を注入して利用できるようになる
-- Spring はアプリケーションの起動時に Bean をスキャンし、必要に応じてインスタンスを生成・管理する
-- `@Controller`、`@Repository`、`@Component` などのアノテーションも同様に Bean を定義する(Spring にインスタンスを管理してもらう)ために使用される
+    @GetMapping("/calc-age")
+    public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
+  ...(snip)
+  ```
 
 
 ## プロジェクトの実行
