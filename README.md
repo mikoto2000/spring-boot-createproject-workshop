@@ -376,3 +376,10 @@ java -jar target/projectcreate-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 これらの基本的な知識を活用して、より複雑なアプリケーションの開発に挑戦してみてください。
 
 
+# 参考資料
+
+- [依存性注入 :: Spring Framework - リファレンス](https://spring.pleiades.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html)
+- [プロファイル :: Spring Boot - リファレンスドキュメント](https://spring.pleiades.io/spring-boot/reference/features/profiles.html)
+- [環境別の設定切り替え :: Spring Boot - リファレンス](https://spring.pleiades.io/spring-boot/reference/features/external-config.html)
+- [基本概念: @Bean および @Configuration :: Spring Framework - リファレンス](https://spring.pleiades.io/spring-framework/reference/core/beans/java/basic-concepts.html)
+
