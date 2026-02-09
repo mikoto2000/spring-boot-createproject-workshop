@@ -197,7 +197,6 @@ projectcreate
 
    import dev.mikoto2000.workshop.projectcreate.calcage.dto.CalcAgeResponse;
    import dev.mikoto2000.workshop.projectcreate.calcage.service.CalcAgeService;
-   import org.springframework.beans.factory.annotation.Autowired;
    import org.springframework.web.bind.annotation.GetMapping;
    import org.springframework.web.bind.annotation.RequestMapping;
    import org.springframework.web.bind.annotation.RequestParam;
@@ -212,7 +211,6 @@ projectcreate
 
      private final CalcAgeService calcAgeService;
 
-     @Autowired
      public CalcAgeController(CalcAgeService calcAgeService) {
        this.calcAgeService = calcAgeService;
      }
@@ -234,32 +232,14 @@ projectcreate
 
 #### DI(Dependency Injection)について
 
-- `@Autowired` アノテーションを使用して、Spring コンテナから `CalcAgeService` のインスタンスを自動的に注入
-    - これを依存性注入(Dependency Injection, DI)と呼ぶ
+- 以下条件がそろっているため、 Spring コンテナから コンストラクタの引数へ `CalcAgeService` のインスタンスが自動的に注入される。これを依存性注入(Dependency Injection, DI)と呼ぶ
+    - フィールドが `private final`
+    - コンストラクタ引数に同型の引数が存在する
 - これにより Spring が管理する Bean として `CalcAgeService` を利用できるようになる
 - `CalcAgeService` のインスタンスは、Spring が管理するため、コード内で直接インスタンス化する必要がない
 - また、DI により、テスト時にモックオブジェクトを注入することも容易になる
 
 Spring が管理する Bean 工場からインスタンスを貰い受けて利用するイメージ。
-
-
-##### ステップアップ Tips
-
-- コンストラクタの `@Autowired` は省略可能
-- Lombok の `@RequiredArgsConstructor` と組み合わせるとさらにコードを簡潔にできる
-  ```java
-  ...(snip)
-  @RestController
-  @RequestMapping("/api/calc-age")
-  @RequiredArgsConstructor // private final フィールドにに代入するコンストラクタを自動生成
-  public class CalcAgeController {
-
-    private final CalcAgeService calcAgeService;
-
-    @GetMapping("/calc-age")
-    public CalcAgeResponse calculateAge(@RequestParam("birthDay") LocalDate birthDay) {
-  ...(snip)
-  ```
 
 
 ## プロジェクトの実行
