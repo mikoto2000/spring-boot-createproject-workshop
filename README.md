@@ -77,7 +77,7 @@ projectcreate
 │   │   │               └── projectcreate
 │   │   │                   └── ProjectcreateApplication.java
 │   │   └── resources
-│   │       ├── application.properties
+│   │       ├── application.yaml
 │   │       └── static
 │   └── test
 │       └── java
@@ -281,7 +281,7 @@ Spring が管理する Bean 工場からインスタンスを貰い受けて利�
 
 ## `application.yaml` の作成
 
-1. `src/main/resources` ディレクトリから `application.properties` を削除し、 `application.yaml` ファイルを作成
+1. `src/main/resources/application.yaml` ファイルを開く
 2. 以下のコードを `application.yaml` に追加
    ```yaml
    server:
