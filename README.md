@@ -1,10 +1,10 @@
 ---
-title: Spring Boot プロジェクトワークショップ
+title: Spring Boot プロジェクトハンズオン
 author: mikoto2000
 date: "2025-11-30"
 ---
 
-# このワークショップについて
+# このハンズオンについて
 
 ## やること
 
@@ -377,7 +377,7 @@ java -jar target/projectcreate-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
 
 # まとめ
 
-このワークショップでは、Spring Boot を使用してシンプルな JSON API を作成する方法を学びました。
+このハンズオンでは、Spring Boot を使用してシンプルな JSON API を作成する方法を学びました。
 プロジェクトの作成からエンドポイントの実装、設定ファイルの管理、そしてアプリケーションのビルドとデプロイまでの一連の流れを理解できたと思います。
 これらの基本的な知識を活用して、より複雑なアプリケーションの開発に挑戦してみてください。
 
